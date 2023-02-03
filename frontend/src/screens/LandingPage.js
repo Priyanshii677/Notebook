@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import s from "./LandingPage.module.scss";
 import image1 from "../utils/images/Taking notes-yellow.png";
 const LandingPage = () => {
-  const [showLoginModel, setShowLoginModel] = useState(false);
   return (
     <div className={s.mainContainer}>
       <div className={s.leftContainer}>
@@ -16,7 +15,7 @@ const LandingPage = () => {
       </div>
 
       <div className={s.rightContainer}>
-        <img src={image1}></img>
+        <img src={image1} alt='notes'></img>
       </div>
     </div>
   );

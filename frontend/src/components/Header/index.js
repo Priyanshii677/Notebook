@@ -3,15 +3,12 @@ import notesIcon from "../../utils/svgs/notes-icon.svg";
 import searchIcon from "../../utils/svgs/search-icon.svg";
 import tagsIcon from "../../utils/svgs/tags-icon.svg";
 import { BsSearch } from "react-icons/bs";
+import { IconContext } from "react-icons";
 
-import {
-  Button,
-  Container,
-  Form,
-  Nav,
-  Navbar,
-  NavDropdown,
-} from "react-bootstrap";
+import { RiEditBoxFill } from "react-icons/ri";
+
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Link } from "react-router-dom";
 const index = () => {
   return (
     <Navbar bg='light' expand='lg' style={{ height: "48px" }}>
@@ -52,6 +49,9 @@ const index = () => {
                 }}
               />
             </Nav.Link>
+            <Nav.Link href='/mynotes'>
+              <Link to='/mynotes'>My Notes</Link>
+            </Nav.Link>
             <NavDropdown title='Link' id='navbarScrollingDropdown'>
               <NavDropdown.Item href='#action3'>Action</NavDropdown.Item>
               <NavDropdown.Item href='#action4'>
@@ -69,7 +69,11 @@ const index = () => {
         </Navbar.Collapse>
 
         <Navbar expand='lg' className='custom-nav'>
-          <BsSearch />
+          <IconContext.Provider value={{ color: "white", size: "40px" }}>
+            <div>
+              <RiEditBoxFill />
+            </div>
+          </IconContext.Provider>
         </Navbar>
       </Container>
     </Navbar>

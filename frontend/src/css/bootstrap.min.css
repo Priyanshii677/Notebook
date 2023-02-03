@@ -4074,7 +4074,7 @@ input[type="submit"].btn-block {
 }
 .custom-nav {
   height: 48px;
-  /* background-color: #000 !important; */
+  background-color: #000 !important;
   width: 200px;
   margin-right: -32px;
 }

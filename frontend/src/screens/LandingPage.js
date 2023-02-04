@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { Button } from "react-bootstrap";
 import s from "./LandingPage.module.scss";
+import { Link } from "react-router-dom";
 import image1 from "../utils/images/Taking notes-yellow.png";
 const LandingPage = () => {
   return (
@@ -9,8 +11,11 @@ const LandingPage = () => {
           The most beautiful note-taking app for all your notes.
         </h1>
         <div className={s.buttonContainer}>
-          <button>Sign Up</button>
-          <button>LogIn</button>
+          <Link to='/access'>
+            <Button size='lg' className={s.accessButton}>
+              Access your notes here
+            </Button>
+          </Link>{" "}
         </div>
       </div>
 

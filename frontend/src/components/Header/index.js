@@ -7,9 +7,20 @@ import { IconContext } from "react-icons";
 
 import { RiEditBoxFill } from "react-icons/ri";
 
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown, NavItem } from "react-bootstrap";
 import { Link } from "react-router-dom";
-const index = () => {
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../actions/userActions";
+const Header = () => {
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const logOutHandler = () => {
+    console.log("log out called");
+    dispatch(logout());
+    // history.push("/");
+  };
   return (
     <Navbar bg='light' expand='lg' style={{ height: "48px" }}>
       <Container fluid>
@@ -73,6 +84,10 @@ const index = () => {
             <div>
               <RiEditBoxFill />
             </div>
+
+            <Nav.Item onClick={logOutHandler} style={{ color: "white" }}>
+              Logout
+            </Nav.Item>
           </IconContext.Provider>
         </Navbar>
       </Container>
@@ -80,4 +95,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Header;

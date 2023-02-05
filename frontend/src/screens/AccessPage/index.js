@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import s from "./AccessPage.module.scss";
 import Loader from "../../components/Loader.js";
 import ErrorMessage from "../../components/ErrorMessage.js";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../actions/userActions";
 const AccessPage = () => {
   const [page, setPage] = useState("loginPage");
   const [name, setName] = useState("");
@@ -15,8 +17,8 @@ const AccessPage = () => {
   const [picture, setPicture] = useState(
     "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
   );
-  const [error, setError] = useState(false);
-  const [loader, setLoader] = useState(false);
+  // const [error, setError] = useState(false);
+  // const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     if (page === "createPage") {
@@ -33,38 +35,20 @@ const AccessPage = () => {
     }
   }, [page]);
 
-  //   useEffect(() => {
-  //     const userInfo = localStorage.getItem("userInfo");
-  //     if (userInfo) {
-  //       history.push("/mynotes");
-  //     }
-  //   }, [history]);
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     history.push("/mynotes");
+  //   }
+  // }, [history, userInfo]);
 
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loader, error, userInfo } = userLogin;
   const signInHandler = async (e) => {
-    console.log("hiiiiii");
     e.preventDefault();
-    try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-      setLoader(true);
 
-      const { data } = await axios.post(
-        "/api/users/login",
-        {
-          email,
-          password,
-        },
-        config
-      );
-      console.log(data, "ppp");
-      localStorage.setItem("userInfo", JSON.stringify(data));
-      setLoader(false);
-    } catch (err) {
-      setError(err.response.data.message);
-    }
+    dispatch(login(email, password));
   };
 
   const signUpHandler = async (e) => {
@@ -79,17 +63,17 @@ const AccessPage = () => {
             "Content-type": "application/json",
           },
         };
-        setLoader(true);
+        // setLoader(true);
         const { data } = await axios.post("/api/users", {
           name,
           email,
           password,
         });
-        setLoader(false);
+        // setLoader(false);
         localStorage.setItem("userInfo", JSON.stringify(data));
       } catch (err) {
         console.log(err.response.data.message, "error in signup");
-        setError(err.response.data.message);
+        // setError(err.response.data.message);
       }
     }
   };

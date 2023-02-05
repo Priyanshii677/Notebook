@@ -3,6 +3,7 @@ import notes from "./data/notes.js";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
+import noteRoutes from "./routes/noteRoutes.js";
 import { errorHandler, notFound } from "./middlewares/errorMiddleware.js";
 import bodyParser from "body-parser";
 
@@ -22,6 +23,7 @@ app.get("/api/notes", (req, res) => {
 });
 
 app.use("/api/users", userRoutes);
+app.use("/api/users", noteRoutes);
 
 app.get("/api/notes/:id", (req, res) => {
   const note = notes.find((x) => x._id === req.params.id);

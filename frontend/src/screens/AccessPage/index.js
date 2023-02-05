@@ -4,8 +4,9 @@ import s from "./AccessPage.module.scss";
 import Loader from "../../components/Loader.js";
 import ErrorMessage from "../../components/ErrorMessage.js";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../actions/userActions";
-const AccessPage = () => {
+import { login, register } from "../../actions/userActions";
+const AccessPage = (e) => {
+  console.log(e, "eeeee");
   const [page, setPage] = useState("loginPage");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -14,11 +15,17 @@ const AccessPage = () => {
   const [message, setMessage] = useState(null);
   const [signInEmail, setSignInEmail] = useState("");
   const [signInPassword, setSignInPassword] = useState("");
-  const [picture, setPicture] = useState(
+  const [pic, setPic] = useState(
     "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
   );
   // const [error, setError] = useState(false);
   // const [loader, setLoader] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loader, error, userInfo } = userLogin;
 
   useEffect(() => {
     if (page === "createPage") {
@@ -41,14 +48,10 @@ const AccessPage = () => {
   //   }
   // }, [history, userInfo]);
 
-  const dispatch = useDispatch();
-
-  const userLogin = useSelector((state) => state.userLogin);
-  const { loader, error, userInfo } = userLogin;
   const signInHandler = async (e) => {
     e.preventDefault();
 
-    dispatch(login(email, password));
+    dispatch(login(signInEmail, signInPassword));
   };
 
   const signUpHandler = async (e) => {
@@ -56,25 +59,7 @@ const AccessPage = () => {
     if (password != confimrPassword) {
       setMessage("passwords do not match");
     } else {
-      setMessage(null);
-      try {
-        const config = {
-          headers: {
-            "Content-type": "application/json",
-          },
-        };
-        // setLoader(true);
-        const { data } = await axios.post("/api/users", {
-          name,
-          email,
-          password,
-        });
-        // setLoader(false);
-        localStorage.setItem("userInfo", JSON.stringify(data));
-      } catch (err) {
-        console.log(err.response.data.message, "error in signup");
-        // setError(err.response.data.message);
-      }
+      dispatch(register(email, name, password, pic));
     }
   };
   return (

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import s from "./LandingPage.module.scss";
 import { Link } from "react-router-dom";
 import image1 from "../utils/images/Taking notes-yellow.png";
-const LandingPage = () => {
+const LandingPage = ({ history }) => {
   return (
     <div className={s.mainContainer}>
       <div className={s.leftContainer}>

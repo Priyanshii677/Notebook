@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import s from "./AccessPage.module.scss";
-import Loader from "../../components/Loader.js";
+import Loading from "../../components/Loading.js";
 import ErrorMessage from "../../components/ErrorMessage.js";
 import { useDispatch, useSelector } from "react-redux";
 import { login, register } from "../../actions/userActions";
@@ -19,13 +19,13 @@ const AccessPage = (e) => {
     "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
   );
   // const [error, setError] = useState(false);
-  // const [loader, setLoader] = useState(false);
+  // const [loading, setLoader] = useState(false);
 
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
   const userRegister = useSelector((state) => state.userRegister);
-  const { loader, error, userInfo } = userLogin;
+  const { loading, error, userInfo } = userLogin;
 
   useEffect(() => {
     if (page === "createPage") {

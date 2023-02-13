@@ -1,7 +1,7 @@
 import Spinner from "react-bootstrap/Spinner";
 import React from "react";
 
-const Loader = ({ size = 100 }) => {
+const Loading = ({ size = 100 }) => {
   return (
     <div
       style={{
@@ -23,4 +23,4 @@ const Loader = ({ size = 100 }) => {
   );
 };
 
-export default Loader;
+export default Loading;

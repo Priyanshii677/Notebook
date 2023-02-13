@@ -14,11 +14,11 @@ import {
 export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
-      return { loader: true };
+      return { loading: true };
     case USER_LOGIN_SUCCESS:
-      return { loader: true, userInfo: action.payload };
+      return { loading: true, userInfo: action.payload };
     case USER_LOGIN_FAIL:
-      return { loader: false, error: action.payload };
+      return { loading: false, error: action.payload };
     case USER_LOGOUT:
       return {};
     default:

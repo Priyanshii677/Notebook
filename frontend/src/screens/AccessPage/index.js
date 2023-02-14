@@ -5,8 +5,8 @@ import Loading from "../../components/Loading.js";
 import ErrorMessage from "../../components/ErrorMessage.js";
 import { useDispatch, useSelector } from "react-redux";
 import { login, register } from "../../actions/userActions";
-const AccessPage = (e) => {
-  console.log(e, "eeeee");
+import { useNavigate } from "react-router-dom";
+const AccessPage = () => {
   const [page, setPage] = useState("loginPage");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,10 +22,14 @@ const AccessPage = (e) => {
   // const [loading, setLoader] = useState(false);
 
   const dispatch = useDispatch();
+  let history = useNavigate();
+
+  console.log(history, "history");
 
   const userLogin = useSelector((state) => state.userLogin);
   const userRegister = useSelector((state) => state.userRegister);
   const { loading, error, userInfo } = userLogin;
+  console.log(userInfo, "userInfo");
 
   useEffect(() => {
     if (page === "createPage") {
@@ -42,11 +46,11 @@ const AccessPage = (e) => {
     }
   }, [page]);
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     history.push("/mynotes");
-  //   }
-  // }, [history, userInfo]);
+  useEffect(() => {
+    if (userInfo) {
+      history("/mynotes");
+    }
+  }, [history, userInfo]);
 
   const signInHandler = async (e) => {
     e.preventDefault();

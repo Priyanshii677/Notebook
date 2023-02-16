@@ -63,7 +63,7 @@ const AccessPage = () => {
     if (password != confimrPassword) {
       setMessage("passwords do not match");
     } else {
-      dispatch(register(email, name, password, pic));
+      dispatch(register(name, email, password, pic));
     }
   };
   return (

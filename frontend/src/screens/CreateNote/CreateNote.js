@@ -10,9 +10,10 @@ import ReactDOM from "react-dom";
 import Quill from "quill";
 import "quill/dist/quill.snow.css"; // ES6
 import s from "./CreateNote.module.scss";
+import { useNavigate } from "react-router-dom";
 // import { useQuill } from "react-quilljs";
 
-function CreateNote({ history }) {
+function CreateNote() {
   const [title, setTitle] = useState("title first");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("no");
@@ -29,13 +30,14 @@ function CreateNote({ history }) {
     setContent("");
   };
 
+  let history = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(createNoteAction(title, content, category));
     if (!title || !content || !category) return;
 
     resetHandler();
-    history.push("/mynotes");
+    history("/mynotes");
   };
 
   const wrapperRef = useCallback((wrapper) => {

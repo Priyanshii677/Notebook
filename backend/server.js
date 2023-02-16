@@ -18,12 +18,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/notes", (req, res) => {
-  console.log(req, "req1");
   res.json(notes);
 });
 
 app.use("/api/users", userRoutes);
-app.use("/api/users", noteRoutes);
+app.use("/api/notes", noteRoutes);
 
 app.get("/api/notes/:id", (req, res) => {
   const note = notes.find((x) => x._id === req.params.id);

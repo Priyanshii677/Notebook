@@ -10,7 +10,8 @@ import ReactDOM from "react-dom";
 import Quill from "quill";
 import "quill/dist/quill.snow.css"; // ES6
 import s from "./CreateNote.module.scss";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { BsSearch } from "react-icons/bs";
 // import { useQuill } from "react-quilljs";
 
 function CreateNote() {
@@ -18,6 +19,8 @@ function CreateNote() {
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("no");
   const dispatch = useDispatch();
+  const location = useLocation();
+  console.log(location.state, "location.state.name");
 
   const noteCreate = useSelector((state) => state.noteCreate);
   const { loading, error, note } = noteCreate;
@@ -44,29 +47,49 @@ function CreateNote() {
     if (wrapper === null) return "";
     wrapper.innerHTML = "";
 
-    const editor = document.createElement("div");
+    const editor = document.createElement("p");
     wrapper.append(editor);
     new Quill(editor, { theme: "snow" });
   }, []);
   console.log(content, "content");
   return (
-    <div className={s.CreateNote}>
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-      <button
-        onClick={(e) => {
-          submitHandler(e);
-        }}
-      >
-        Save
-      </button>
-      <div
-        id='container'
-        ref={wrapperRef}
-        onInput={(e) => {
-          setContent(e.currentTarget.textContent);
-        }}
-      ></div>
+    <div className={s.mainModal}>
+      <div className={s.createNote}>
+        <input
+          type='text'
+          placeholder=''
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        />
+        <input
+          type='text'
+          placeholder=''
+          value={category}
+          onChange={(e) => {
+            setCategory(e.target.value);
+          }}
+        />
+
+        <p
+          id='container'
+          ref={wrapperRef}
+          onInput={(e) => {
+            setContent(e.currentTarget.textContent);
+          }}
+        ></p>
+
+        <div className={s.footer}>
+          <button
+            onClick={(e) => {
+              submitHandler(e);
+            }}
+          >
+            Save
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

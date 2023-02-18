@@ -66,8 +66,14 @@ const MyNotes = () => {
     <div className={s.mainContainer}>
       {notes &&
         notes.map((value) => {
+          console.log(value._id, "value for noteeeee");
           return (
-            <Note title={value.title} content={value.content} key={value._id} />
+            <Note
+              title={value.title}
+              content={value.content}
+              key={value._id}
+              value={value}
+            />
           );
         })}
     </div>

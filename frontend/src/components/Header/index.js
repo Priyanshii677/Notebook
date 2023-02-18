@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import notesIcon from "../../utils/svgs/notes-icon.svg";
 import searchIcon from "../../utils/svgs/search-icon.svg";
 import tagsIcon from "../../utils/svgs/tags-icon.svg";
@@ -16,6 +16,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  const [createNoteOpen, setCreateNoteOpen] = useState(false);
   let history = useNavigate();
   const logOutHandler = () => {
     console.log("log out called");

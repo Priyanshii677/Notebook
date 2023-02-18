@@ -1,9 +1,10 @@
 import React from "react";
 import s from "./Note.module.scss";
 const Note = (props) => {
-  const { title, content } = props;
+  const { title, content, key, value } = props;
+  console.log(props, "key");
   return (
-    <div className={s.mainContainer}>
+    <a className={s.mainContainer} href={`/note/${value._id}`}>
       <div className={s.noteWrapper}>
         <div className={s.notebook}>
           <div className={s.notebookCover}>
@@ -14,7 +15,7 @@ const Note = (props) => {
           <div className={s.notebookPage}>{content}</div>
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 

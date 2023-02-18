@@ -1,7 +1,7 @@
 import Header from "../src/components/Header";
 import Footer from "./components/Footer";
 import LandingPage from "./screens/LandingPage";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import MyNotes from "./screens/MyNotes";
 import AccessPage from "./screens/AccessPage";
 import CreateNote from "./screens/CreateNote/CreateNote.js";
@@ -19,7 +19,7 @@ function App() {
         <Route path='/mynotes' element={<MyNotes />} />
         <Route path='/access' element={<AccessPage />} />
         <Route path='/createnote' element={<CreateNote />} />
-        <Route path='/note/:id' component={SingleNote} />
+        <Route path='/note/:id' element={<SingleNote />} />
       </Routes>
       <Footer />
     </BrowserRouter>

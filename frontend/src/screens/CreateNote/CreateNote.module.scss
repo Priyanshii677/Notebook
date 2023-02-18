@@ -1,4 +1,50 @@
-.CreateNote {
-  font-family: sans-serif;
-  text-align: center;
+.mainModal {
+  opacity: 1;
+  visibility: visible;
+  width: 100%;
+  height: 98vh;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .createNote {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    background-color: red;
+    width: 45%;
+    height: 92vh;
+
+    input {
+      margin: 12px 50% 0px 50%;
+      font-size: 22px;
+      line-height: 32px;
+      height: 32px;
+      font-family: "Noto Sans", sans-serif;
+      font-weight: bold;
+      max-width: 90%;
+      display: inline-block;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 50%;
+      vertical-align: top;
+      background-color: transparent;
+      border: none;
+    }
+
+    .footer {
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      bottom: 0;
+    }
+  }
 }

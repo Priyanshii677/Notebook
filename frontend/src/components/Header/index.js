@@ -24,6 +24,10 @@ const Header = () => {
     history("/");
   };
 
+  const profilePageHandler = () => {
+    history("/profile");
+  };
+
   const createNoteHandler = (e) => {
     e.preventDefault();
     // dispatch(createNoteAction(title, content, category));
@@ -61,6 +65,16 @@ const Header = () => {
               Logout
             </Nav.Item>
           </IconContext.Provider>
+          <Nav.Item onClick={profilePageHandler}>
+            {/* <img
+                      alt=""
+                      src={`${userInfo.pic}`}
+                      width="25"
+                      height="25"
+                      style={{ marginRight: 10 }}
+                    /> */}
+            My Profile
+          </Nav.Item>
         </Navbar>
       </Container>
     </Navbar>

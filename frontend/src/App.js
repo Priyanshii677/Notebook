@@ -7,12 +7,17 @@ import AccessPage from "./screens/AccessPage";
 import CreateNote from "./screens/CreateNote/CreateNote.js";
 import SingleNote from "./screens/CreateNote/SingleNote.js";
 import Profile from "./screens/ProfileScreen";
+import { useSelector } from "react-redux";
 
 import "./css/bootstrap.min.css";
 function App() {
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  console.log(userInfo, "userInfo in header");
   return (
     <BrowserRouter>
-      <Header />
+      {userInfo !== null && <Header />}
+
       {/* <LandingPage /> */}
 
       <Routes>

@@ -22,16 +22,17 @@ function SingleNote() {
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("no");
   const [bgColor, setBgColor] = useState("red");
+  const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
   console.log(location.state, "location.state.name");
   const noteUpdate = useSelector((state) => state.noteUpdate);
   const { loading, error } = noteUpdate;
+  console.log(noteUpdate, "noteUpdate");
 
   const noteDelete = useSelector((state) => state.noteDelete);
   const { loading: loadingDelete, error: errorDelete } = noteDelete;
 
-  // console.log(note);
   let history = useNavigate();
   const params = useParams();
 
@@ -44,17 +45,23 @@ function SingleNote() {
 
   console.log(params, "params please");
 
+  const fetching = async () => {
+    try {
+      setLoader(true);
+      await axios.get(`/api/notes/${params.id}`).then((response) => {
+        console.log(response);
+        setTitle(response.data.title);
+        setContent(response.data.content);
+        setCategory(response.data.category);
+        setBgColor(response.data.bgColor);
+        setLoader(false);
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
-    const fetching = async () => {
-      const { data } = await axios.get(`/api/notes/${params.id}`);
-
-      setTitle(data.title);
-      setContent(data.content);
-      setCategory(data.category);
-      setBgColor(data.bgColor);
-      console.log(data, "data");
-    };
-
     fetching();
   }, [params.id]);
 
@@ -126,54 +133,59 @@ function SingleNote() {
 
   console.log(content, "content");
   return (
-    <div className={s.mainModal}>
-      <div className={s.createNote} style={{ backgroundColor: bgColor }}>
-        <input
-          type='text'
-          placeholder=''
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-        />
-        <input
-          type='text'
-          placeholder=''
-          value={category}
-          onChange={(e) => {
-            setCategory(e.target.value);
-          }}
-        />
+    <>
+      {loader && <Loading />}
+      {!loader && (
+        <div className={s.mainModal}>
+          <div className={s.createNote} style={{ backgroundColor: bgColor }}>
+            <input
+              type='text'
+              placeholder=''
+              value={title}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+            />
+            <input
+              type='text'
+              placeholder=''
+              value={category}
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
+            />
 
-        <JoditEditor
-          ref={editor}
-          value={content}
-          tabIndex={1}
-          config={config}
-          onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-          // onChange={(newContent) => setContent(newContent)}
-        />
+            <JoditEditor
+              ref={editor}
+              value={content}
+              tabIndex={1}
+              config={config}
+              onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+              // onChange={(newContent) => setContent(newContent)}
+            />
 
-        <div className={s.footer}>
-          <button
-            onClick={(e) => {
-              updateHandler(e);
-            }}
-            className={s.saveButton}
-          >
-            Save
-          </button>
-          <button
-            onClick={(e) => {
-              deleteHandler();
-            }}
-            className={s.saveButton}
-          >
-            Delete
-          </button>
+            <div className={s.footer}>
+              <button
+                onClick={(e) => {
+                  updateHandler(e);
+                }}
+                className={s.saveButton}
+              >
+                Save
+              </button>
+              <button
+                onClick={(e) => {
+                  deleteHandler();
+                }}
+                className={s.saveButton}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 

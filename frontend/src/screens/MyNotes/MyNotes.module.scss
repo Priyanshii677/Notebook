@@ -2,5 +2,10 @@
   background-color: #f8f9fa;
   height: 93vh;
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto auto auto;
+  grid-row-gap: 20px;
+  //   display: flex;
+  //   justify-content: space-around;
+  //   flex-wrap: wrap;
+  // }
 }

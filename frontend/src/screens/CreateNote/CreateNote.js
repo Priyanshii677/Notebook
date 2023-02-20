@@ -12,6 +12,7 @@ import "quill/dist/quill.snow.css"; // ES6
 import s from "./CreateNote.module.scss";
 import { useNavigate, useLocation } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
+import JoditEditor from "jodit-react";
 // import { useQuill } from "react-quilljs";
 
 function CreateNote() {
@@ -47,16 +48,57 @@ function CreateNote() {
     resetHandler();
     history("/mynotes");
   };
-
-  const wrapperRef = useCallback((wrapper) => {
-    if (wrapper === null) return "";
-    wrapper.innerHTML = "";
-
-    const editor = document.createElement("p");
-    wrapper.append(editor);
-    new Quill(editor, { theme: "snow" });
-  }, []);
+  const editor = useRef(null);
   console.log(content, "content");
+  const config = {
+    readonly: false, // all options from https://xdsoft.net/jodit/doc/
+    height: "75vh",
+    width: "100%",
+    enableDragAndDropFileToEditor: true,
+    buttons: [
+      "source",
+      "|",
+      "bold",
+      "italic",
+      "underline",
+      "|",
+      "ul",
+      "ol",
+      "|",
+      "font",
+      "fontsize",
+      "brush",
+      "paragraph",
+      "|",
+      "image",
+      "table",
+      "link",
+      "|",
+      "left",
+      "center",
+      "right",
+      "justify",
+      "|",
+      "undo",
+      "redo",
+      "|",
+      "hr",
+      "eraser",
+      "fullsize",
+    ],
+    uploader: { insertImageAsBase64URI: true },
+    removeButtons: ["brush", "file"],
+    showXPathInStatusbar: false,
+    showCharsCounter: false,
+    showWordsCounter: false,
+    toolbarAdaptive: true,
+    toolbarSticky: true,
+    style: {
+      background: location.state.bgColor,
+      color: "black",
+    },
+  };
+
   return (
     <div className={s.mainModal}>
       <div
@@ -71,14 +113,14 @@ function CreateNote() {
             setTitle(e.target.value);
           }}
         />
-
-        <p
-          id='container'
-          ref={wrapperRef}
-          onInput={(e) => {
-            setContent(e.currentTarget.textContent);
-          }}
-        ></p>
+        <JoditEditor
+          ref={editor}
+          value={content}
+          tabIndex={1}
+          config={config}
+          onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+          // onChange={(newContent) => setContent(newContent)}
+        />
 
         <input
           type='text'

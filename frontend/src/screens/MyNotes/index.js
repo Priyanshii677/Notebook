@@ -6,6 +6,7 @@ import s from "./MyNotes.module.scss";
 import Note from "../Note";
 import axios from "axios";
 import { deleteNoteAction, listNotes } from "../../actions/notesActions";
+import Loading from "../../components/Loading";
 const MyNotes = () => {
   // const [notes, setNotes] = useState([]);
 
@@ -63,20 +64,24 @@ const MyNotes = () => {
   };
 
   return (
-    <div className={s.mainContainer}>
-      {notes &&
-        notes.map((value) => {
-          console.log(value, "value for noteeeee");
-          return (
-            <Note
-              title={value.title}
-              content={value.content}
-              key={value._id}
-              value={value}
-            />
-          );
-        })}
-    </div>
+    <>
+      {loading && <Loading />}
+      {loadingDelete && <Loading />}
+      <div className={s.mainContainer}>
+        {notes &&
+          notes.map((value) => {
+            console.log(value, "value for noteeeee");
+            return (
+              <Note
+                title={value.title}
+                content={value.content}
+                key={value._id}
+                value={value}
+              />
+            );
+          })}
+      </div>
+    </>
   );
 };
 

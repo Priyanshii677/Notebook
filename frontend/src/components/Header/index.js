@@ -39,6 +39,12 @@ const Header = () => {
       "#786fa6",
       "#e66767",
       "#D6A2E8",
+      "#81ecec",
+      "#b2bec3",
+      "#f6e58d",
+      "#dff9fb",
+      "#BDC581",
+      "#F8EFBA",
     ];
     const x = Math.floor(Math.random() * randomColor.length);
     return randomColor[x];

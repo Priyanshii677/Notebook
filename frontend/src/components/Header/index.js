@@ -18,6 +18,31 @@ const Header = () => {
   const { userInfo } = userLogin;
   const [createNoteOpen, setCreateNoteOpen] = useState(false);
   let history = useNavigate();
+
+  const randomColorGen = () => {
+    const randomColor = [
+      "#FFC312",
+      "#12CBC4",
+      "#ED4C67",
+      "#F79F1F",
+      "#A3CB38",
+      "#1289A7",
+      "#9980FA",
+      "#009432",
+      "#EE5A24",
+      "#5758BB",
+      "#006266",
+      "#0fb9b1",
+      "#f368e0",
+      "#ea8685",
+      "#f8a5c2",
+      "#786fa6",
+      "#e66767",
+      "#D6A2E8",
+    ];
+    const x = Math.floor(Math.random() * randomColor.length);
+    return randomColor[x];
+  };
   const logOutHandler = () => {
     console.log("log out called");
     dispatch(logout());
@@ -32,7 +57,7 @@ const Header = () => {
     e.preventDefault();
     // dispatch(createNoteAction(title, content, category));
     // if (!title || !content || !category) return;
-    history("/createnote");
+    history("/createnote", { state: { bgColor: randomColorGen() } });
   };
   return (
     <Navbar bg='light' expand='lg' style={{ height: "48px" }}>

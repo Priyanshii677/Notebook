@@ -21,10 +21,10 @@ function SingleNote() {
   const [title, setTitle] = useState("title first");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("no");
+  const [bgColor, setBgColor] = useState("red");
   const dispatch = useDispatch();
   const location = useLocation();
   console.log(location.state, "location.state.name");
-
   const noteUpdate = useSelector((state) => state.noteUpdate);
   const { loading, error } = noteUpdate;
 
@@ -33,14 +33,14 @@ function SingleNote() {
 
   // console.log(note);
   let history = useNavigate();
+  const params = useParams();
 
-  const deleteHandler = (id) => {
+  const deleteHandler = () => {
     if (window.confirm("Are you sure?")) {
-      dispatch(deleteNoteAction(id));
+      dispatch(deleteNoteAction(params.id));
     }
     history("/mynotes");
   };
-  const params = useParams();
 
   console.log(params, "params please");
 
@@ -51,6 +51,7 @@ function SingleNote() {
       setTitle(data.title);
       setContent(data.content);
       setCategory(data.category);
+      setBgColor(data.bgColor);
       console.log(data, "data");
     };
 
@@ -74,10 +75,59 @@ function SingleNote() {
   const editor = useRef(null);
   let placeholder = "";
 
+  const config = {
+    readonly: false, // all options from https://xdsoft.net/jodit/doc/
+    height: "75vh",
+    width: "100%",
+    enableDragAndDropFileToEditor: true,
+    buttons: [
+      "source",
+      "|",
+      "bold",
+      "italic",
+      "underline",
+      "|",
+      "ul",
+      "ol",
+      "|",
+      "font",
+      "fontsize",
+      "brush",
+      "paragraph",
+      "|",
+      "image",
+      "table",
+      "link",
+      "|",
+      "left",
+      "center",
+      "right",
+      "justify",
+      "|",
+      "undo",
+      "redo",
+      "|",
+      "hr",
+      "eraser",
+      "fullsize",
+    ],
+    uploader: { insertImageAsBase64URI: true },
+    removeButtons: ["brush", "file"],
+    showXPathInStatusbar: false,
+    showCharsCounter: false,
+    showWordsCounter: false,
+    toolbarAdaptive: true,
+    toolbarSticky: true,
+    style: {
+      background: bgColor,
+      color: "black",
+    },
+  };
+
   console.log(content, "content");
   return (
     <div className={s.mainModal}>
-      <div className={s.createNote}>
+      <div className={s.createNote} style={{ backgroundColor: bgColor }}>
         <input
           type='text'
           placeholder=''
@@ -98,8 +148,10 @@ function SingleNote() {
         <JoditEditor
           ref={editor}
           value={content}
-          // onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-          onChange={(newContent) => setContent(newContent)}
+          tabIndex={1}
+          config={config}
+          onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+          // onChange={(newContent) => setContent(newContent)}
         />
 
         <div className={s.footer}>
@@ -107,8 +159,17 @@ function SingleNote() {
             onClick={(e) => {
               updateHandler(e);
             }}
+            className={s.saveButton}
           >
             Save
+          </button>
+          <button
+            onClick={(e) => {
+              deleteHandler();
+            }}
+            className={s.saveButton}
+          >
+            Delete
           </button>
         </div>
       </div>

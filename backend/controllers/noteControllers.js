@@ -28,14 +28,20 @@ const getNoteById = asyncHandler(async (req, res) => {
 //@route           GET /api/notes/create
 //@access          Private
 const CreateNote = asyncHandler(async (req, res) => {
-  const { title, content, category } = req.body;
+  const { title, content, category, bgColor } = req.body;
 
-  if (!title || !content || !category) {
+  if (!title || !content || !category || !bgColor) {
     res.status(400);
     throw new Error("Please Fill all the feilds");
     return;
   } else {
-    const note = new Note({ user: req.user._id, title, content, category });
+    const note = new Note({
+      user: req.user._id,
+      title,
+      content,
+      category,
+      bgColor,
+    });
 
     const createdNote = await note.save();
 
@@ -48,7 +54,7 @@ const CreateNote = asyncHandler(async (req, res) => {
 //@access          Private
 const DeleteNote = asyncHandler(async (req, res) => {
   const note = await Note.findById(req.params.id);
-
+  console.log("delete pleaseeeeeeeeee");
   if (note.user.toString() !== req.user._id.toString()) {
     res.status(401);
     throw new Error("You can't perform this action");

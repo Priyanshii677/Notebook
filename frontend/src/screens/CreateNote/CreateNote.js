@@ -15,9 +15,10 @@ import { BsSearch } from "react-icons/bs";
 // import { useQuill } from "react-quilljs";
 
 function CreateNote() {
-  const [title, setTitle] = useState("title first");
+  const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [category, setCategory] = useState("no");
+  const [category, setCategory] = useState("6666");
+  const [bgColor, setBgColor] = useState("red");
   const dispatch = useDispatch();
   const location = useLocation();
   console.log(location.state, "location.state.name");
@@ -31,13 +32,17 @@ function CreateNote() {
     setTitle("");
     setCategory("");
     setContent("");
+    setBgColor("red");
   };
 
   let history = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createNoteAction(title, content, category));
-    if (!title || !content || !category) return;
+    const p = location.state.bgColor;
+    console.log(p, "random color");
+    setBgColor(p);
+    dispatch(createNoteAction(title, content, category, p));
+    if (!title || !content || !category || !p) return;
 
     resetHandler();
     history("/mynotes");
@@ -54,21 +59,16 @@ function CreateNote() {
   console.log(content, "content");
   return (
     <div className={s.mainModal}>
-      <div className={s.createNote}>
+      <div
+        className={s.createNote}
+        style={{ backgroundColor: location.state.bgColor }}
+      >
         <input
           type='text'
-          placeholder=''
+          placeholder='Title'
           value={title}
           onChange={(e) => {
             setTitle(e.target.value);
-          }}
-        />
-        <input
-          type='text'
-          placeholder=''
-          value={category}
-          onChange={(e) => {
-            setCategory(e.target.value);
           }}
         />
 
@@ -80,11 +80,21 @@ function CreateNote() {
           }}
         ></p>
 
+        <input
+          type='text'
+          placeholder=''
+          value={category}
+          onChange={(e) => {
+            setCategory(e.target.value);
+          }}
+        />
+
         <div className={s.footer}>
           <button
             onClick={(e) => {
               submitHandler(e);
             }}
+            className={s.saveButton}
           >
             Save
           </button>

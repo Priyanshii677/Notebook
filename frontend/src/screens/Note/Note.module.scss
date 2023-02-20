@@ -35,7 +35,6 @@ $color-green: #abc3b5;
         }
       }
       .notebookCover {
-        background: #cc4b48;
         height: 250px;
         width: 175px;
         position: absolute;
@@ -44,6 +43,7 @@ $color-green: #abc3b5;
         transition: 0.5s linear;
         transform-style: preserve-3d;
         transform-origin: left center 0px;
+        cursor: pointer;
         &:before {
           content: "";
           position: absolute;

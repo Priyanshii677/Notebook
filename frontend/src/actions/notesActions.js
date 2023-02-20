@@ -49,7 +49,7 @@ export const listNotes = () => async (dispatch, getState) => {
 };
 
 export const createNoteAction =
-  (title, content, category) => async (dispatch, getState) => {
+  (title, content, category, bgColor) => async (dispatch, getState) => {
     try {
       dispatch({
         type: NOTES_CREATE_REQUEST,
@@ -68,7 +68,7 @@ export const createNoteAction =
 
       const { data } = await axios.post(
         `/api/notes/create`,
-        { title, content, category },
+        { title, content, category, bgColor },
         config
       );
 
@@ -106,6 +106,7 @@ export const deleteNoteAction = (id) => async (dispatch, getState) => {
 
     const { data } = await axios.delete(`/api/notes/${id}`, config);
 
+    console.log(data, "data in deleteNote");
     dispatch({
       type: NOTES_DELETE_SUCCESS,
       payload: data,
@@ -123,7 +124,7 @@ export const deleteNoteAction = (id) => async (dispatch, getState) => {
 };
 
 export const updateNoteAction =
-  (id, title, content, category) => async (dispatch, getState) => {
+  (id, title, content, category, bgColor) => async (dispatch, getState) => {
     try {
       dispatch({
         type: NOTES_UPDATE_REQUEST,
@@ -142,7 +143,7 @@ export const updateNoteAction =
 
       const { data } = await axios.put(
         `/api/notes/${id}`,
-        { title, content, category },
+        { title, content, category, bgColor },
         config
       );
 

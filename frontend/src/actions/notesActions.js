@@ -105,8 +105,6 @@ export const deleteNoteAction = (id) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.delete(`/api/notes/${id}`, config);
-
-    console.log(data, "data in deleteNote");
     dispatch({
       type: NOTES_DELETE_SUCCESS,
       payload: data,
@@ -126,7 +124,6 @@ export const deleteNoteAction = (id) => async (dispatch, getState) => {
 export const updateNoteAction =
   (id, title, content, category, bgColor) => async (dispatch, getState) => {
     try {
-      console.log(NOTES_UPDATE_REQUEST, "NOTES_UPDATE_REQUEST");
       dispatch({
         type: NOTES_UPDATE_REQUEST,
       });

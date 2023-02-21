@@ -1,31 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import s from "./MyNotes.module.scss";
 import Note from "../Note";
-import axios from "axios";
 import { deleteNoteAction, listNotes } from "../../actions/notesActions";
 import Loading from "../../components/Loading";
 const MyNotes = () => {
-  // const [notes, setNotes] = useState([]);
-
-  // const fetchNotes = async () => {
-  //   const { data } = await axios.get("/api/notes");
-  //   setNotes(data);
-  //   console.log(data);
-  // };
   const history = useNavigate();
 
   const dispatch = useDispatch();
 
   const noteList = useSelector((state) => state.noteList);
   const { loading, error, notes } = noteList;
-  console.log(noteList, "noteList");
-
-  // const filteredNotes = notes.filter((note) =>
-  //   note.title.toLowerCase().includes(search.toLowerCase())
-  // );
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -70,14 +57,8 @@ const MyNotes = () => {
       <div className={s.mainContainer}>
         {notes &&
           notes.map((value) => {
-            console.log(value, "value for noteeeee");
             return (
-              <Note
-                title={value.title}
-                content={value.content}
-                key={value._id}
-                value={value}
-              />
+              <Note title={value.title} content={value.content} value={value} />
             );
           })}
       </div>

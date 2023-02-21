@@ -6,7 +6,6 @@ import generateToken from "../utils/generateToken.js";
 //@route           POST /api/users/login
 //@access          Public
 const authUser = asyncHandler(async (req, res) => {
-  console.log("authuserrr");
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
@@ -30,7 +29,6 @@ const authUser = asyncHandler(async (req, res) => {
 //@route           POST /api/users/
 //@access          Public
 const registerUser = asyncHandler(async (req, res) => {
-  console.log("registeruserrr");
   const { name, email, password, pic } = req.body;
 
   const userExists = await User.findOne({ email });

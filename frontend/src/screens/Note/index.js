@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import s from "./Note.module.scss";
 const Note = (props) => {
   const history = useNavigate();
-  const { title, content, key, value } = props;
-  console.log(props, "key");
+  const { title, content, value } = props;
   const onClickHandlerNote = () => {
     history(`/note/${value._id}`);
   };

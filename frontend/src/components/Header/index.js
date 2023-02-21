@@ -50,7 +50,6 @@ const Header = () => {
     return randomColor[x];
   };
   const logOutHandler = () => {
-    console.log("log out called");
     dispatch(logout());
     history("/");
   };

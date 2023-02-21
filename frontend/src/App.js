@@ -13,7 +13,6 @@ import "./css/bootstrap.min.css";
 function App() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-  console.log(userInfo, "userInfo in header");
   return (
     <BrowserRouter>
       {userInfo !== null && <Header />}

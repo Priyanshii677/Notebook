@@ -24,12 +24,9 @@ const AccessPage = () => {
   const dispatch = useDispatch();
   let history = useNavigate();
 
-  console.log(history, "history");
-
   const userLogin = useSelector((state) => state.userLogin);
   const userRegister = useSelector((state) => state.userRegister);
   const { loading, error, userInfo } = userLogin;
-  console.log(userInfo, "userInfo");
 
   useEffect(() => {
     if (page === "createPage") {

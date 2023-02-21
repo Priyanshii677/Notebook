@@ -17,7 +17,6 @@ import JoditEditor from "jodit-react";
 // import { useQuill } from "react-quilljs";
 
 function SingleNote() {
-  console.log("hooooooooo");
   const [title, setTitle] = useState("title first");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("no");
@@ -25,10 +24,8 @@ function SingleNote() {
   const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
-  console.log(location.state, "location.state.name");
   const noteUpdate = useSelector((state) => state.noteUpdate);
   const { loading, error } = noteUpdate;
-  console.log(noteUpdate, "noteUpdate");
 
   const noteDelete = useSelector((state) => state.noteDelete);
   const { loading: loadingDelete, error: errorDelete } = noteDelete;
@@ -50,7 +47,6 @@ function SingleNote() {
       setTitle(data.title);
       setContent(data.content);
       setBgColor(data.bgColor);
-      console.log(data, "data");
       setLoader(false);
     };
     setLoader(true);
@@ -123,8 +119,6 @@ function SingleNote() {
       fontSize: "22px",
     },
   };
-
-  console.log(content, "content");
   return (
     <>
       {loader && <Loading />}

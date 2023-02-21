@@ -22,12 +22,9 @@ function CreateNote() {
   const [bgColor, setBgColor] = useState("red");
   const dispatch = useDispatch();
   const location = useLocation();
-  console.log(location.state, "location.state.name");
 
   const noteCreate = useSelector((state) => state.noteCreate);
   const { loading, error, note } = noteCreate;
-
-  // console.log(note);
 
   const resetHandler = () => {
     setTitle("");
@@ -40,7 +37,6 @@ function CreateNote() {
   const submitHandler = (e) => {
     e.preventDefault();
     const p = location.state.bgColor;
-    console.log(p, "random color");
     setBgColor(p);
     dispatch(createNoteAction(title, content, category, p));
     if (!title || !content || !category || !p) return;
@@ -49,7 +45,6 @@ function CreateNote() {
     history("/mynotes");
   };
   const editor = useRef(null);
-  console.log(content, "content");
   const config = {
     readonly: false, // all options from https://xdsoft.net/jodit/doc/
     height: "75vh",

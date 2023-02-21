@@ -43,31 +43,23 @@ function SingleNote() {
     history("/mynotes");
   };
 
-  console.log(params, "params please");
-
-  const fetching = async () => {
-    try {
-      setLoader(true);
-      await axios.get(`/api/notes/${params.id}`).then((response) => {
-        console.log(response);
-        setTitle(response.data.title);
-        setContent(response.data.content);
-        setCategory(response.data.category);
-        setBgColor(response.data.bgColor);
-        setLoader(false);
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   useEffect(() => {
+    const fetching = async () => {
+      const { data } = await axios.get(`/api/notes/${params.id}`);
+
+      setTitle(data.title);
+      setContent(data.content);
+      setBgColor(data.bgColor);
+      console.log(data, "data");
+      setLoader(false);
+    };
+    setLoader(true);
     fetching();
   }, [params.id]);
 
   const resetHandler = () => {
     setTitle("");
-    setCategory("");
+    setCategory("no");
     setContent("");
   };
 
@@ -128,6 +120,7 @@ function SingleNote() {
     style: {
       background: bgColor,
       color: "black",
+      fontSize: "22px",
     },
   };
 

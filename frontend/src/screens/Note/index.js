@@ -23,7 +23,14 @@ const Note = (props) => {
               <div className={s.title}>{title}</div>
             </div>
           </div>
-          <div className={s.notebookPage}>{content}</div>
+          <div
+            className={s.notebookPage}
+            onClick={() => {
+              onClickHandlerNote();
+            }}
+          >
+            {content}
+          </div>
         </div>
       </div>
     </div>

@@ -96,6 +96,7 @@ function CreateNote() {
     style: {
       background: location.state.bgColor,
       color: "black",
+      fontSize: "22px",
     },
   };
 

@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "../../actions/userActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
+import { useNavigate } from "react-router-dom";
 
-const ProfileScreen = ({ location, history }) => {
+const ProfileScreen = ({ location }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pic, setPic] = useState();
@@ -22,39 +23,17 @@ const ProfileScreen = ({ location, history }) => {
   const userUpdate = useSelector((state) => state.userUpdate);
   const { loading, error, success } = userUpdate;
 
+  let history = useNavigate();
+
   useEffect(() => {
     if (!userInfo) {
-      history.push("/");
+      history("/");
     } else {
       setName(userInfo.name);
       setEmail(userInfo.email);
       setPic(userInfo.pic);
     }
   }, [history, userInfo]);
-
-  const postDetails = (pics) => {
-    setPicMessage(null);
-    if (pics.type === "image/jpeg" || pics.type === "image/png") {
-      const data = new FormData();
-      data.append("file", pics);
-      data.append("upload_preset", "notezipper");
-      data.append("cloud_name", "piyushproj");
-      fetch("https://api.cloudinary.com/v1_1/piyushproj/image/upload", {
-        method: "post",
-        body: data,
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setPic(data.url.toString());
-          console.log(pic);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      return setPicMessage("Please Select an Image");
-    }
-  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -111,32 +90,13 @@ const ProfileScreen = ({ location, history }) => {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 ></Form.Control>
               </Form.Group>{" "}
-              {picMessage && (
+              {/* {picMessage && (
                 <ErrorMessage variant='danger'>{picMessage}</ErrorMessage>
-              )}
-              <Form.Group controlId='pic'>
-                <Form.Label>Change Profile Picture</Form.Label>
-                <Form.File
-                  onChange={(e) => postDetails(e.target.files[0])}
-                  id='custom-file'
-                  type='image/png'
-                  label='Upload Profile Picture'
-                  custom
-                />
-              </Form.Group>
+              )} */}
               <Button type='submit' varient='primary'>
                 Update
               </Button>
             </Form>
-          </Col>
-          <Col
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <img src={pic} alt={name} className='profilePic' />
           </Col>
         </Row>
       </div>

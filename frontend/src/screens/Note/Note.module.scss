@@ -89,7 +89,9 @@ $color-green: #abc3b5;
           }
           .title {
             position: absolute;
-            right: 20px;
+            right: 37px;
+            width: 135px;
+            word-break: break-word;
           }
         }
       }

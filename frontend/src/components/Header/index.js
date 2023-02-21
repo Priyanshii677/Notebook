@@ -68,7 +68,7 @@ const Header = () => {
   return (
     <Navbar bg='light' expand='lg' style={{ height: "48px" }}>
       <Container fluid>
-        <Navbar.Brand href='#'>
+        <Navbar.Brand href='/'>
           <img
             src={notesIcon}
             alt=' notebook logo'
@@ -88,15 +88,14 @@ const Header = () => {
 
         <Navbar expand='lg' className='custom-nav'>
           <IconContext.Provider value={{ color: "white", size: "40px" }}>
-            <div>
-              <RiEditBoxFill />
-            </div>
-
             <Nav.Item onClick={logOutHandler} style={{ color: "white" }}>
               Logout
             </Nav.Item>
           </IconContext.Provider>
-          <Nav.Item onClick={profilePageHandler}>
+          <Nav.Item
+            onClick={profilePageHandler}
+            style={{ color: "white", marginLeft: "5px" }}
+          >
             {/* <img
                       alt=""
                       src={`${userInfo.pic}`}

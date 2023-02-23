@@ -48,10 +48,6 @@ function SingleNote() {
     };
     setLoader(true);
     fetching();
-
-    let x = document.getElementsByClassName("jodit-container");
-    console.log(x, "xxxx");
-    // x.style.display = "none";
   }, [params.id]);
 
   const resetHandler = () => {

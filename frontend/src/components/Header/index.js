@@ -81,19 +81,23 @@ const Header = () => {
           onClick={(e) => {
             createNoteHandler(e);
           }}
+          style={{ cursor: "pointer" }}
         >
           Create Note
         </Nav.Item>
 
         <Navbar expand='lg' className='custom-nav'>
           <IconContext.Provider value={{ color: "white", size: "40px" }}>
-            <Nav.Item onClick={logOutHandler} style={{ color: "white" }}>
+            <Nav.Item
+              onClick={logOutHandler}
+              style={{ color: "white", cursor: "pointer" }}
+            >
               Logout
             </Nav.Item>
           </IconContext.Provider>
           <Nav.Item
             onClick={profilePageHandler}
-            style={{ color: "white", marginLeft: "5px" }}
+            style={{ color: "white", marginLeft: "10px", cursor: "pointer" }}
           >
             {/* <img
                       alt=""

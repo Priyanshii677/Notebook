@@ -1,17 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
 // import MainScreen from "../../components/MainScreen";
-import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { updateNoteAction, deleteNoteAction } from "../../actions/notesActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import ReactMarkdown from "react-markdown";
 import ReactDOM from "react-dom";
-import Quill from "quill";
 import "quill/dist/quill.snow.css"; // ES6
 import s from "./CreateNote.module.scss";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import { BsSearch } from "react-icons/bs";
 import axios from "axios";
 import JoditEditor from "jodit-react";
 // import { useQuill } from "react-quilljs";
@@ -51,6 +48,10 @@ function SingleNote() {
     };
     setLoader(true);
     fetching();
+
+    let x = document.getElementsByClassName("jodit-container");
+    console.log(x, "xxxx");
+    // x.style.display = "none";
   }, [params.id]);
 
   const resetHandler = () => {
@@ -142,14 +143,16 @@ function SingleNote() {
               }}
             />
 
-            <JoditEditor
-              ref={editor}
-              value={content}
-              tabIndex={1}
-              config={config}
-              onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-              // onChange={(newContent) => setContent(newContent)}
-            />
+            <div className={s.editor}>
+              <JoditEditor
+                ref={editor}
+                value={content}
+                tabIndex={1}
+                config={config}
+                onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+                // onChange={(newContent) => setContent(newContent)}
+              />
+            </div>
 
             <div className={s.footer}>
               <button

@@ -41,7 +41,11 @@ const ProfileScreen = ({ location }) => {
   };
 
   return (
-    <div title='EDIT PROFILE'>
+    <div
+      className='mainContainer'
+      title='EDIT PROFILE'
+      style={{ marginLeft: "700px", marginRight: "200px", marginTop: "50px" }}
+    >
       <div>
         <Row className='profileContainer'>
           <Col md={6}>

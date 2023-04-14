@@ -13,9 +13,9 @@ connectDB();
 app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.get("/", (req, res) => {
-  res.send("api is running");
-});
+// app.get("/", (req, res) => {
+//   res.send("api is running");
+// });
 
 // app.get("/api/notes", (req, res) => {
 //   res.json(notes);

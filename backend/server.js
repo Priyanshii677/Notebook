@@ -13,22 +13,9 @@ connectDB();
 app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.get("/", (req, res) => {
-//   res.send("api is running");
-// });
-
-// app.get("/api/notes", (req, res) => {
-//   res.json(notes);
-// });
 
 app.use("/api/users", userRoutes);
 app.use("/api/notes", noteRoutes);
-
-// app.get("/api/notes/:id", (req, res) => {
-//   const note = notes.find((x) => x._id === req.params.id);
-
-//   res.send(note);
-// });
 
 app.use(notFound);
 app.use(errorHandler);

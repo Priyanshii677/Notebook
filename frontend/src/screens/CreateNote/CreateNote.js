@@ -107,14 +107,7 @@ function CreateNote() {
             setTitle(e.target.value);
           }}
         />
-        <input
-          type='text'
-          placeholder='Add Category'
-          value={category}
-          onChange={(e) => {
-            setCategory(e.target.value);
-          }}
-        />
+
         <div className={s.editor}>
           <JoditEditor
             ref={editor}

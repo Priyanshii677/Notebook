@@ -29,12 +29,22 @@ const MyNotes = () => {
 
   const noteUpdate = useSelector((state) => state.noteUpdate);
   const { success: successUpdate } = noteUpdate;
+  let cloneNotes = [];
 
   useEffect(() => {
     dispatch(listNotes());
     if (!userInfo) {
       history("/");
     }
+    if (Array.isArray(notes)) {
+      console.log(notes);
+      cloneNotes = notes.sort(
+        (objA, objB) => Number(objA.updatedAt) - Number(objB.updatedAt)
+      );
+      console.log("iiiiii", cloneNotes);
+    }
+
+    // console.log(notes);
   }, [
     dispatch,
     history,
@@ -43,12 +53,6 @@ const MyNotes = () => {
     successCreate,
     successUpdate,
   ]);
-
-  const deleteHandler = (id) => {
-    if (window.confirm("Are you sure?")) {
-      dispatch(deleteNoteAction(id));
-    }
-  };
 
   return (
     <>

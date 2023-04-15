@@ -10,6 +10,7 @@ import Profile from "./screens/ProfileScreen";
 import { useSelector } from "react-redux";
 
 import "./css/bootstrap.min.css";
+import SingleNoteModal from "./screens/CreateNote/SignleNoteModal";
 function App() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -24,7 +25,7 @@ function App() {
         <Route path='/mynotes' element={<MyNotes />} />
         <Route path='/access' element={<AccessPage />} />
         <Route path='/createnote' element={<CreateNote />} />
-        <Route path='/note/:id' element={<SingleNote />} />
+        <Route path='/note/:id' element={<SingleNoteModal />} />
         <Route path='/profile' element={<Profile />} />
       </Routes>
       <Footer />

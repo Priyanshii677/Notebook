@@ -12,6 +12,9 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import JoditEditor from "jodit-react";
 // import { useQuill } from "react-quilljs";
+import parse from "html-react-parser";
+import DOMPurify from "dompurify";
+import { AiFillEdit, AiTwotoneSave, AiFillDelete } from "react-icons/ai";
 
 function SingleNote() {
   const [title, setTitle] = useState("title first");
@@ -19,6 +22,7 @@ function SingleNote() {
   const [category, setCategory] = useState("no");
   const [bgColor, setBgColor] = useState("red");
   const [loader, setLoader] = useState(false);
+  const [newContent, setNewContent] = useState("");
   const dispatch = useDispatch();
   const location = useLocation();
   const noteUpdate = useSelector((state) => state.noteUpdate);
@@ -31,13 +35,14 @@ function SingleNote() {
   const params = useParams();
 
   const deleteHandler = () => {
-    if (window.confirm("Are you sure?")) {
+    if (window.confirm("Are you sure you want to delete this note?")) {
       dispatch(deleteNoteAction(params.id));
     }
     history("/mynotes");
   };
 
   useEffect(() => {
+    console.log("1stttttt");
     const fetching = async () => {
       const { data } = await axios.get(`/api/notes/${params.id}`);
 
@@ -49,6 +54,19 @@ function SingleNote() {
     setLoader(true);
     fetching();
   }, [params.id]);
+
+  function createMarkup(html) {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
+  }
+
+  // useEffect(() => {
+  //   const textContent = { __html: content.replace(/<\/?[^>]+(>|$)/g, "") };
+  //   setNewContent(textContent);
+  //   console.log(content);
+  //   console.log(textContent, "textContent");
+  // }, [content]);
 
   const resetHandler = () => {
     setTitle("");
@@ -130,14 +148,6 @@ function SingleNote() {
                 setTitle(e.target.value);
               }}
             />
-            <input
-              type='text'
-              placeholder=''
-              value={category}
-              onChange={(e) => {
-                setCategory(e.target.value);
-              }}
-            />
 
             <div className={s.editor}>
               <JoditEditor
@@ -169,6 +179,10 @@ function SingleNote() {
               </button>
             </div>
           </div>
+          {/* <div
+            className='preview'
+            dangerouslySetInnerHTML={createMarkup(content)}
+          ></div> */}
         </div>
       )}
     </>
